@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Framely{% endblock %}
+
+    <!-- Page Loader -->
+    <!-- <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+     -->
+
+{% block content %}
+
+    <h1>Welcome to Framely 
+        {% if request.user.is_authenticated %}
+            {{user.username}}
+        {% else %}
+            Anonymous
+        {% endif %}
+    </h1>
+
+{% endblock %}

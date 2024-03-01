@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Users Page{% endblock %}
+
+{% block content %}
+
+<div class="row tm-mb-74 tm-people-row gx-5">
+    {% for profile in profiles %}
+        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-5">
+            {% if profile.photo %}
+                <img src="{{profile.photo.url}}" alt="Image" class="mb-4 img-fluid object-fit-cover" 
+                    style="height: 300px;">
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center bg-primary mb-4" style="width: auto;height: 300px;">
+                    <p class="text-white text-uppercase" style="font-size: 2rem;">{{profile.user.username}}</p>
+                </div>
+            {% endif %}
+            <h2 class="tm-text-primary mb-4">{{profile.user.username}}</h2>
+            <h3 class="tm-text-secondary h5 mb-4">{{profile.title}}</h3>
+            <!-- <p class="mb-4">
+                Mauris ante tellus, feugiat nec metus non, bibendum semper velit. Praesent laoreet urna id tristique fermentum. Morbi venenatis dui quis diam mollis pellentesque.
+            </p> -->
+            <ul class="tm-social pl-0 mb-0">
+                {% if profile.facebook_profile_link %}
+                    <li><a href="{{profile.facebook_profile_link}}"><i class="fab fa-facebook"></i></a></li>
+                {% endif %}
+                {% if profile.twitter_profile_link %}
+                    <li><a href="{{twitter_profile_link}}"><i class="fab fa-twitter"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Profile{% endblock title%}
+
+{% block content %}
+
+
+    <h1>Log In</h1>
+
+    {% if form.errors %}
+        <p>Your username and password didn't match.</p>
+    {% endif %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        {{form|crispy}}
+
+        <input type="hidden" name="next" value="{{next}}">
+        <input type="submit" class="btn btn-success tm-btn-next" value="Log In">
+    </form>
+
+    <p>Don't have an account ? <a href="{% url 'signup' %}">Sign Up</a>.</p>
+
+{% endblock %}
