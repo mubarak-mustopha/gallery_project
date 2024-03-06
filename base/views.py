@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib import messages
 from django.views import View
 from .forms import PhotoModelForm
 from .models import Photo
@@ -22,6 +24,9 @@ class PhotoCreationView(View):
     def post(self, request):
         form = PhotoModelForm(request.POST, request.FILES)
         if form.is_valid():
-            image_size = form.cleaned_data["image"].size
-            print(f"Image size: {image_size/ 2*10}kb")
-            return render(request, "create_photo.html", {"form": form})
+            form.save()
+            messages.success(request, message="Post successfully uploaded.")
+            return redirect("home")
+        else:
+            print(form.errors)
+            return HttpResponse("Invalid form")
