@@ -6,4 +6,4 @@ from .models import Photo
 
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ["short_title", "slug", "image"]
+    list_display = ["id", "short_title", "slug", "image"]
