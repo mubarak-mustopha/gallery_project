@@ -15,6 +15,6 @@ class PhotoModelForm(forms.ModelForm):
         image_size_kb = image.size / 2**10
         if image_size_kb > 100:
             raise forms.ValidationError(
-                "Image size should not be more thank 100 kilobytes."
+                "Image size should not be larger than 100 kilobytes."
             )
         return image
