@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.contrib import messages
 from django.views import View
@@ -15,6 +17,7 @@ class HomeView(View):
         return render(request, self.template_name)
 
 
+@method_decorator(login_required, name="dispatch")
 class PhotoCreationView(View):
 
     def get(self, request):
@@ -24,9 +27,17 @@ class PhotoCreationView(View):
     def post(self, request):
         form = PhotoModelForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            photo = form.save()
             messages.success(request, message="Post successfully uploaded.")
-            return redirect("home")
+            return redirect(photo)
         else:
-            print(form.errors)
-            return HttpResponse("Invalid form")
+            return render(request, "create_photo.html", {"form": form})
+
+
+class PhotoDetailView(View):
+    def get(self, request, pk, slug):
+        photo = Photo.objects.get(id=pk, slug=slug)
+        image_format = photo.image.name.rsplit(".")[-1].upper()
+        return render(
+            request, "photo_detail.html", {"photo": photo, "image_format": image_format}
+        )
