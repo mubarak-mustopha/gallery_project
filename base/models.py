@@ -6,7 +6,7 @@ from django.utils.text import slugify
 class Photo(models.Model):
     short_title = models.CharField(max_length=15)
     slug = models.SlugField(blank=True)
-    image = models.ImageField(max_length=15)
+    image = models.ImageField(max_length=200)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
