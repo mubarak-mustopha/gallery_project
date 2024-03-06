@@ -27,7 +27,9 @@ class PhotoCreationView(View):
     def post(self, request):
         form = PhotoModelForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save()
+            photo = form.save(commit = False)
+            photo.user = request.user
+            photo.save()
             messages.success(request, message="Post successfully uploaded.")
             return redirect(photo)
         else:
