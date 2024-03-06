@@ -14,7 +14,8 @@ class HomeView(View):
     template_name = "home.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        photos = Photo.objects.all()
+        return render(request, self.template_name, {"photos": photos})
 
 
 @method_decorator(login_required, name="dispatch")
@@ -27,7 +28,7 @@ class PhotoCreationView(View):
     def post(self, request):
         form = PhotoModelForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save(commit = False)
+            photo = form.save(commit=False)
             photo.user = request.user
             photo.save()
             messages.success(request, message="Post successfully uploaded.")
