@@ -8,7 +8,7 @@
     {% for profile in profiles %}
         <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-5">
             {% if profile.photo %}
-                <img src="{{profile.photo.url}}" alt="Image" class="mb-4 img-fluid object-fit-cover" 
+                <img src="{{profile.photo.url}}" alt="Image" class="mb-4 img-fluid" 
                     style="height: 300px;">
             {% else %}
                 <div class="d-flex justify-content-center align-items-center bg-primary mb-4" style="width: auto;height: 300px;">
