@@ -62,3 +62,12 @@ class ProfileEditForm(forms.ModelForm):
             return twitter_link
         else:
             raise forms.ValidationError("Not a valid twitter link.")
+
+    def clean_photo(self):
+        photo = self.cleaned_data["photo"]
+        if not photo or (photo.size / 2**10) <= 100:
+            return photo
+        else:
+            raise forms.ValidationError(
+                "Image size should not be larger than 100 kilobytes."
+            )
