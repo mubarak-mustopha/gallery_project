@@ -15,7 +15,7 @@ class Photo(models.Model):
     created = models.DateField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ["-created", "-id"]
 
     def __str__(self):
         return self.short_title
