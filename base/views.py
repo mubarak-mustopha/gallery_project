@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.views import View
 from .forms import PhotoModelForm
+from .utils import get_month
 from .models import Photo
 
 # Create your views here.
@@ -16,20 +17,26 @@ class HomeView(View):
     photo_list = Photo.objects.all()
 
     def get(self, request):
+        # paginator
         paginator = Paginator(self.photo_list, 8)
         num_pages = paginator.num_pages
         page_range = paginator.page_range
-        # requeted page
+        # requested page
         page = request.GET.get("page") or 1
         if int(page) not in page_range:
             page = num_pages
 
         current_page = paginator.get_page(page)
+        # [(photo_obj,month)]
+        photos_months_list = [
+            (photo, get_month(photo.created.month)) for photo in current_page
+        ]
         context = {
             "current_page": current_page,
             "page_num": int(page),
             "num_pages": num_pages,
             "page_range": page_range,
+            "photos_months_list": photos_months_list,
         }
         return render(request, self.template_name, context=context)
 
