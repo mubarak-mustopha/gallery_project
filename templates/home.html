@@ -40,7 +40,7 @@
         </div>
 
         <div class="row tm-mb-90 tm-gallery">
-            {% for photo in current_page %}
+            {% for photo,month in photos_months_list %}
 
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
@@ -51,7 +51,7 @@
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
+                    <span class="tm-text-gray-light">{{photo.created.day}} {{month}} {{photo.created.year}}</span>
                     <span>{{photo.views.count}} views</span>
                 </div>
             </div>
@@ -87,5 +87,6 @@
         </div>
 
     </div>
+
 
 {% endblock %}
