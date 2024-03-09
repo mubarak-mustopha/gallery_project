@@ -20,7 +20,6 @@ class UserCreation(View):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password"])
             user.save()
-            Profile.objects.create(user=user)
             return redirect("login")
         else:
             return render(request, "registration/signup.html", {"form": form})
