@@ -15,12 +15,16 @@
 {% block content %}
 
     <h1>Welcome to Framely 
+        <span class="tm-text-primary">
         {% if request.user.is_authenticated %}
             {{user.username}}
         {% else %}
             Anonymous
         {% endif %}
+        </span>
     </h1>
+
+    <a href="{% url 'create-photo' %}" class="btn btn-primary tm-btn">Add Photo</a>
 
     <div class="container-fluid tm-container-content tm-mt-60">
 
@@ -67,7 +71,7 @@
                 <!-- Individual page btns -->
 
                 <div class="tm-paging d-flex">
-                    {% for i in ind %}
+                    {% for i in page_range %}
                         <a href="{% url 'home' %}?page={{i}}" class="{% if i == page_num %}active{% endif %} tm-paging-link">{{i}}</a>
                     {% endfor %}    
                 </div>
