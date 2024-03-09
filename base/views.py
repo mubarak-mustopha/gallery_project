@@ -16,15 +16,20 @@ class HomeView(View):
     photo_list = Photo.objects.all()
 
     def get(self, request):
-        page = request.GET.get("page") or 1
         paginator = Paginator(self.photo_list, 8)
         num_pages = paginator.num_pages
+        page_range = paginator.page_range
+        # requeted page
+        page = request.GET.get("page") or 1
+        if int(page) not in page_range:
+            page = num_pages
+
         current_page = paginator.get_page(page)
         context = {
             "current_page": current_page,
             "page_num": int(page),
             "num_pages": num_pages,
-            "ind": range(1, num_pages + 1),
+            "page_range": page_range,
         }
         return render(request, self.template_name, context=context)
 
