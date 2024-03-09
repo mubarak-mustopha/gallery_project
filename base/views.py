@@ -34,7 +34,7 @@ class HomeView(View):
         return render(request, self.template_name, context=context)
 
 
-@method_decorator(login_required, name="dispatch")
+@method_decorator(login_required(login_url="login"), name="dispatch")
 class PhotoCreationView(View):
 
     def get(self, request):
@@ -57,6 +57,8 @@ class PhotoDetailView(View):
     def get(self, request, pk, slug):
         photo = Photo.objects.get(id=pk, slug=slug)
         image_format = photo.image.name.rsplit(".")[-1].upper()
+        if request.user.is_authenticated:
+            photo.views.add(request.user)
         return render(
             request, "photo_detail.html", {"photo": photo, "image_format": image_format}
         )
