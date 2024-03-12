@@ -1,0 +1,63 @@
+
+
+    <div class="row mb-4">
+        <h2 class="col-6 tm-text-primary">
+            {% if heading_txt %}
+                {{heading_txt}}
+            {% else %}
+            Latest Photos
+            {% endif %}
+        </h2>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <form action="" class="tm-text-primary">
+                Page <input name="page" type="text" value="{{page_num}}" size="1" class="tm-input-paging tm-text-primary"> of {{num_pages}}
+            </form>
+        </div>
+    </div>
+
+    <div class="row tm-mb-90 tm-gallery">
+        {% for photo,month in photos_months_list %}
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+            <figure class="effect-ming tm-video-item">
+                <img src="{{photo.image.url}}" alt="Image" class="img-fluid">
+                <figcaption class="d-flex align-items-center justify-content-center">
+                    <h2>{{photo.short_title}}</h2>
+                    <a href="{% url 'photo-detail' photo.id photo.slug %}">View more</a>
+                </figcaption>                    
+            </figure>
+            <div class="d-flex justify-content-between tm-text-gray">
+                <span class="tm-text-gray-light">{{photo.created.day}} {{month}} {{photo.created.year}}</span>
+                <span>{{photo.views.count}} views</span>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="row tm-mb-90">
+        <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+            <!-- Previous page btn -->
+            {% if current_page.has_previous %}
+                <a href="{% url 'home' %}?page={{current_page.previous_page_number}}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+            {% else %}
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>    
+            {% endif %}
+
+            <!-- Individual page btns -->
+
+            <div class="tm-paging d-flex">
+                {% for i in page_range %}
+                    <a href="{% url 'home' %}?page={{i}}" class="{% if i == page_num %}active{% endif %} tm-paging-link">{{i}}</a>
+                {% endfor %}    
+            </div>
+
+            <!-- Next page btns -->
+            {% if current_page.has_next %}
+                <a href="{% url 'home' %}?page={{current_page.next_page_number}}" class="btn btn-primary tm-btn-next">Next Page</a>
+            {% else %}
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-next disabled">Next Page</a>
+            {% endif %}
+
+        </div>            
+    </div>
