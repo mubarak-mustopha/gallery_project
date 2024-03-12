@@ -5,6 +5,17 @@
     <div class="container-fluid tm-container-content tm-mt-60">
 
         <div class="row mb-4">
+            <a href="{{request.META.HTTP_REFERER}}">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+                  <title>arrow-left</title>
+                  <path
+                    d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+                  ></path>
+                </svg>
+              </a>
+        </div>
+
+        <div class="row mb-4">
             <h2 class="col-12 tm-text-primary">{{photo.short_title}}</h2>
         </div>
 
@@ -15,7 +26,7 @@
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                 <div class="tm-bg-gray tm-video-details">
                     <p class="mb-4">
-                        <span class="tm-text-primary">{{photo.short_title}}</span> was posted by <a href="#" target="" >{{photo.user.username}}</a> {{photo.created|timesince}} ago. You can view other photos by <span class="tm-text-primary">{{photo.user.username}}</span>.
+                        <span class="tm-text-primary">{{photo.short_title}}</span> was posted by <a href="#" target="" >{{photo.user.username}}</a> {{photo.created|timesince}} ago. You can <a href="{% url 'photo-list' photo.user.username %}"><span class="tm-text-primary">view other photos by {{photo.user.username}}</span></a>.
                     </p>
                     <div class="text-center mb-5">
                         <a href="{{photo.image.url}}" target="_blank" class="btn btn-primary tm-btn-big">Download</a>
