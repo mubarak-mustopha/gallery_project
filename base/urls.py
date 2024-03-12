@@ -9,4 +9,7 @@ urlpatterns = [
         views.PhotoDetailView.as_view(),
         name="photo-detail",
     ),
+    path(
+        "photo-list/<str:username>/", views.UserPhotoList.as_view(), name="photo-list"
+    ),
 ]
