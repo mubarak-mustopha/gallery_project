@@ -173,5 +173,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"  # new
 
 
 # email settings
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
