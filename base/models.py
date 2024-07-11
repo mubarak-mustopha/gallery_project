@@ -12,7 +12,7 @@ class Photo(models.Model):
     short_title = models.CharField(max_length=15)
     slug = models.SlugField(blank=True)
     image = models.ImageField(max_length=200)
-    created = models.DateField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     views = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="photos_viewed",
